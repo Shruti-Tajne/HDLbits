@@ -1,4 +1,4 @@
-// Question 16. Vector reversal 1/ Vectorr - https://hdlbits.01xz.net/wiki/Vectorr
+// Question 17. Vector reversal 1/ Vectorr - https://hdlbits.01xz.net/wiki/Vectorr
 
 module top_module( 
     input [7:0] in,
