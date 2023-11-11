@@ -1,0 +1,51 @@
+module top_module (
+    input clk,
+    input resetn,   // synchronous reset
+    input in,
+    output reg out);
+    
+    reg Q1, Q2, Q3;
+    
+    my_dff d1(.clk(clk), .reset(resetn), .D(in), .Q(Q1));
+    my_dff d2(.clk(clk), .reset(resetn), .D(Q1), .Q(Q2));
+    my_dff d3(.clk(clk), .reset(resetn), .D(Q2), .Q(Q3));
+    my_dff d4(.clk(clk), .reset(resetn), .D(Q3), .Q(out));
+    
+endmodule
+
+module my_dff (
+    input clk,
+    input reset,   // synchronous reset
+    input D,
+    output reg Q);
+    
+    always@(posedge clk) begin
+        if (!reset)
+            Q <= 0;
+        else
+            Q <= D;
+    end
+endmodule
+
+--------------------------------------------------------------------
+
+module top_module (
+	input clk,
+	input resetn,
+	input in,
+	output out
+);
+
+	reg [3:0] sr;
+	
+	// Create a shift register named sr. It shifts in "in".
+	always @(posedge clk) begin
+		if (~resetn)		// Synchronous active-low reset
+			sr <= 0;
+		else 
+			sr <= {sr[2:0], in};
+	end
+	
+	assign out = sr[3];		// Output the final bit (sr[3])
+
+endmodule

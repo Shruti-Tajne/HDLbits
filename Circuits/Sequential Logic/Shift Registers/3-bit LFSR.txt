@@ -1,0 +1,27 @@
+module top_module (
+	input [2:0] SW,      // R
+	input [1:0] KEY,     // L and clk
+	output [2:0] LEDR);  // Q
+    
+    wire x;
+    assign x = LEDR[2]^LEDR[1];
+    
+    mux_dff dff1(.clk(KEY[0]), .A(LEDR[2]), .B(SW[0]),.sel(KEY[1]), .Q(LEDR[0]));
+    mux_dff dff2(.clk(KEY[0]), .A(LEDR[0]), .B(SW[1]),.sel(KEY[1]), .Q(LEDR[1]));
+    mux_dff dff3(.clk(KEY[0]), .A(x), .B(SW[2]),.sel(KEY[1]), .Q(LEDR[2]));
+
+endmodule
+
+module mux_dff(
+	input clk,
+    input A,
+    input B,
+	input sel,
+    output Q);
+    
+    wire D;
+    assign D = sel ? B: A;
+    always@(posedge clk)
+    	Q <= D;	
+    
+endmodule
