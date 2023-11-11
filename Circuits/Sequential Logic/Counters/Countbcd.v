@@ -1,4 +1,10 @@
-   digit ones( .clk(clk), .reset(reset), .enable(1), .q(q[3:0]));
+module top_module (
+    input clk,
+    input reset,   // Synchronous active-high reset
+    output [3:1] ena,
+    output [15:0] q);
+   
+    digit ones( .clk(clk), .reset(reset), .enable(1), .q(q[3:0]));
     digit tens( .clk(clk), .reset(reset), .enable(ena[1]), .q(q[7:4]));
     digit huns( .clk(clk), .reset(reset), .enable(ena[2]), .q(q[11:8]));
     digit thou( .clk(clk), .reset(reset), .enable(ena[3]), .q(q[15:12]));
